@@ -19,17 +19,22 @@
 // - html will not change as questions are answered and instead will change from display hidden to display visible
 // - highscores button disabled whilst quiz in progress
 
-
-// - start button click event
 const startBtnEl = document.querySelector("#startButton");
-startBtnEl.addEventListener("click", /*start game function here*/);
-
 const introEl = document.querySelector(".intro");
 const qAndAEl = document.querySelector(".qAndA");
 const questionEl = document.querySelector("#questions");
 const answerEl = document.querySelector("#answers");
+const returnBtnEl = document.querySelector("#returnHome")
 
 let score = 0;
+
+// - start button click event
+//startBtnEl.addEventListener("click", /*start game function here*/);
+
+// return button on highscore page
+returnBtnEl.addEventListener("click", function(){
+    location.assign("index.html")
+});
 
 const quizQuestions = [
     {question: "What does HTML stand for?",
