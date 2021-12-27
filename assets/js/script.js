@@ -18,3 +18,8 @@
 // - main page once quiz starts will have highscores link in top corner, timer in other corner and then question
 // - html will not change as questions are answered and instead will change from display hidden to display visible
 // - highscores button disabled whilst quiz in progress
+
+
+// - start button click event
+var startBtnEl = document.querySelector("#startButton")
+startBtnEl.addEventListener("click", //start game function here)
