@@ -1,5 +1,5 @@
 // - Landing page has title followed by some text describing the game - DONE
-// - Start button on page will then hide this text and show first question
+// - Start button on page will then hide this text and show first question when pressed
 // - questions and answers are hidden until start is pressed
 // - questions will only appear one at a time and next question won't appear until previous one answered
 // - timer in top corner that begins when start is pressed (set interval)
@@ -21,5 +21,59 @@
 
 
 // - start button click event
-var startBtnEl = document.querySelector("#startButton")
-startBtnEl.addEventListener("click", //start game function here)
+const startBtnEl = document.querySelector("#startButton");
+startBtnEl.addEventListener("click", /*start game function here*/);
+
+const introEl = document.querySelector(".intro");
+const qAndAEl = document.querySelector(".qAndA");
+const questionEl = document.querySelector("#questions");
+const answerEl = document.querySelector("#answers");
+
+let score = 0;
+
+const quizQuestions = [
+    {question: "What does HTML stand for?",
+        answer: [
+            {text: "HyperText Markup Langauge", correct: true},
+            {text: "HelloText My Learning", correct: false},
+            {text: "HyperText Means Language", correct: false},
+            {text: "HeavyTraffic Means Late", correct: false}
+        ],
+    },
+
+    {question: "What tag is used to add CSS to HTML?",
+        answer: [
+            {text: "<img>", correct: false},
+            {text: "<script>", correct: false},
+            {text: "<link>", correct: true},
+            {text: "<a>", correct: false}
+        ],
+    },
+
+    {question: "How many values does boolean have in Javascript?",
+        answer: [
+            {text: "3", correct: false},
+            {text: "10", correct: false},
+            {text: "0", correct: false},
+            {text: "2", correct: true}
+        ],
+    },
+
+    {question: "Who invented Javascript?",
+        answer: [
+            {text: "Elon Musk", correct: false},
+            {text: "Steve Jobs", correct: false},
+            {text: "Brendan Eich", correct: true},
+            {text: "Tim Cook", correct: false}
+        ],
+    },
+
+    {question: "When was Javascript invented?",
+        answer: [
+            {text: "1997", correct: false},
+            {text: "1995", correct: true},
+            {text: "2001", correct: false},
+            {text: "2010", correct: false}
+        ],
+    },
+]
