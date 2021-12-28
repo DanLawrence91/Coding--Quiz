@@ -21,8 +21,15 @@ main {
     padding: 20px 0 20px 0;
 }
 
-.hiddenQs {
-    display: none;
+.qAndA {
+    display: flex;
+    width: 50vw;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 30%;
+    padding: 10px;
 }
 
 .nav {
@@ -36,10 +43,11 @@ main {
     cursor: pointer;
 }
 
-#returnHome:hover {
-    cursor: pointer;
+#questions {
+    display: none;
 }
 
+/* highscore page styling below */
 .highscoreStyle {
     display: flex;
     flex-wrap: wrap;
@@ -53,4 +61,8 @@ main {
 
 .highscoreStyle h1 {
     padding: 10px;
+}
+
+#returnHome:hover {
+    cursor: pointer;
 }
