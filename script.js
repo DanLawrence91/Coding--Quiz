@@ -23,16 +23,24 @@ const startBtnEl = document.querySelector("#startButton");
 const introEl = document.querySelector(".intro");
 const qAndAEl = document.querySelector(".qAndA");
 const questionEl = document.querySelector("#questions");
+const landingEl = document.querySelector("#landingPage");
 const answerEl = document.querySelector("#answers");
 const timerEl = document.querySelector("#intervalTimer")
 const returnBtnEl = document.querySelector("#returnHome");
 const clearEl = document.querySelector("clearHS");
-
-let score = 0;
+const leaderboard = document.querySelector(".high-score")
 
 // - start button click event
 startBtnEl.addEventListener("click", function startQuiz(){
-    var timeLeft = 10;
+    var timeLeft = 60;
+    
+    if (questionEl.display == "none"){
+        questionEl.setAttribute("style", "display:none");
+        landingEl.setAttribute("style", "display:block");
+    } else {
+        questionEl.setAttribute("style", "display:block");
+        landingEl.setAttribute("style", "display:none");
+    }
 
     var timeInterval = setInterval(function (){
         if (timeLeft > 1){
@@ -48,20 +56,20 @@ startBtnEl.addEventListener("click", function startQuiz(){
         }
     }, 1000);
 
-
 });
 
 // return button on highscore page
-returnBtnEl.addEventListener("click", function(){
-    location.assign("index.html");
-});
+// returnBtnEl.addEventListener("click", function(){
+//     location.assign("index.html");
+// });
 
 // store highscores based on time left in game
+// var highScore = localStorage.getItem("time")
 
 // clear local storage on click
-clearEl.addEventListener("click", function(){
-    localStorage.clear();
-});
+// clearEl.addEventListener("click", function(){
+//     localStorage.clear();
+// });
 
 const quizQuestions = [
     {question: "What does HTML stand for?",
