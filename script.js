@@ -11,7 +11,7 @@
 // - once timer is over (clear interval) or all questions are answered the game will end
 // - once time is up will display score and user will input initials using form and submit button
 // - highscores page linked to main page - this is the time html changes - DONE
-// - once initials are entered will be taken to highscore.html - look at score apps from class in week 4
+// - once initials are entered will be taken to highscore.html (look at score apps from class in week 4)
 // - this will display all scores save through local storage
 // - on highscore page you can either go back to main page to start again or clear highscores
 // - if highscores cleared the leaderboard disappears and you can then click button to go back
@@ -30,8 +30,13 @@ const returnBtnEl = document.querySelector("#returnHome");
 const clearEl = document.querySelector("clearHS");
 const leaderboard = document.querySelector(".high-score")
 
+let score = 0
+let currentQuestionIndex = ""
+
 // - start button click event to set timer going and display first question
-startBtnEl.addEventListener("click", function beginQuiz(){
+startBtnEl.addEventListener("click", beginQuiz);
+
+function beginQuiz(){
     var timeLeft = 60;
     
     if (qAndAnsEl.display == "none"){
@@ -55,20 +60,37 @@ startBtnEl.addEventListener("click", function beginQuiz(){
             //may need to call a function here for end of game + also need to reduce time by 10 when question wrong
         }
     }, 1000);
+    currentQuestionIndex = 0;
+    showQuizQues();
+}
+
+function showQuizQues (){
+    setQuizQues(quizQuestions[currentQuestionIndex])
+}
+
+function setQuizQues (question){
+    questionsEl.innerHTML = quizQuestions[currentQuestionIndex].question;
+    question.answer.forEach(answer => {
+        const button = document.createElement('button')
+        button.innerText = answer.text
+        button.classList.add('button')
+        if (answer.correct) {
+            button.dataset.correct = answer.correct
+        }
+        button.addEventListener("click", selectedAnswer)
+        answerEl.appendChild(button)
+    });
     
-    quizStart();
+}
 
-});
+function selectedAnswer() {
 
-let currentQuestion = 0;
-let score = 0
 
-function quizStart (){
-    questionsEl.innerHTML = quizQuestions[currentQuestion].question
 }
 
 const quizQuestions = [
-    {question: "What does HTML stand for?",
+    {
+        question: "What does HTML stand for?",
         answer: [
             {text: "HyperText Markup Langauge", correct: true},
             {text: "HelloText My Learning", correct: false},
@@ -77,7 +99,8 @@ const quizQuestions = [
         ],
     },
 
-    {question: "What tag is used to add CSS to HTML?",
+    {
+        question: "What tag is used to add CSS to HTML?",
         answer: [
             {text: "<img>", correct: false},
             {text: "<script>", correct: false},
@@ -86,7 +109,8 @@ const quizQuestions = [
         ],
     },
 
-    {question: "How many values does boolean have in Javascript?",
+    {
+        question: "How many values does boolean have in Javascript?",
         answer: [
             {text: "3", correct: false},
             {text: "10", correct: false},
@@ -95,7 +119,8 @@ const quizQuestions = [
         ],
     },
 
-    {question: "Who invented Javascript?",
+    {
+        question: "Who invented Javascript?",
         answer: [
             {text: "Elon Musk", correct: false},
             {text: "Steve Jobs", correct: false},
@@ -104,7 +129,8 @@ const quizQuestions = [
         ],
     },
 
-    {question: "When was Javascript invented?",
+    {
+        question: "When was Javascript invented?",
         answer: [
             {text: "1997", correct: false},
             {text: "1995", correct: true},
