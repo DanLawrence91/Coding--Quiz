@@ -1,6 +1,6 @@
 // - Landing page has title followed by some text describing the game - DONE
-// - Start button on page will then hide this text and show first question when pressed
-// - questions and answers are hidden until start is pressed
+// - Start button on page will then hide this text and show first question when pressed - DONE
+// - questions and answers are hidden until start is pressed - DONE
 // - questions will only appear one at a time and next question won't appear until previous one answered
 // - timer in top corner that begins when start is pressed (set interval) - DONE
 // - need to then show question with four answer buttons for user to select one
@@ -30,7 +30,7 @@ const returnBtnEl = document.querySelector("#returnHome");
 const clearEl = document.querySelector("clearHS");
 const leaderboard = document.querySelector(".high-score")
 
-// - start button click event
+// - start button click event to set timer going and display first question
 startBtnEl.addEventListener("click", function startQuiz(){
     var timeLeft = 60;
     
@@ -57,19 +57,6 @@ startBtnEl.addEventListener("click", function startQuiz(){
     }, 1000);
 
 });
-
-// return button on highscore page
-// returnBtnEl.addEventListener("click", function(){
-//     location.assign("index.html");
-// });
-
-// store highscores based on time left in game
-// var highScore = localStorage.getItem("time")
-
-// clear local storage on click
-// clearEl.addEventListener("click", function(){
-//     localStorage.clear();
-// });
 
 const quizQuestions = [
     {question: "What does HTML stand for?",
