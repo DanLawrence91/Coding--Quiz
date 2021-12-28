@@ -2,7 +2,7 @@
 // - Start button on page will then hide this text and show first question when pressed
 // - questions and answers are hidden until start is pressed
 // - questions will only appear one at a time and next question won't appear until previous one answered
-// - timer in top corner that begins when start is pressed (set interval)
+// - timer in top corner that begins when start is pressed (set interval) - DONE
 // - need to then show question with four answer buttons for user to select one
 // - once first question is answered this then shows whether correct or incorrect for brief period (use interval)
 // - will then move to next question and display this with first question hidden
@@ -31,16 +31,17 @@ let score = 0;
 
 // - start button click event
 startBtnEl.addEventListener("click", function timer(){
-    var timeLeft = 100;
+    var timeLeft = 10;
 
     var timeInterval = setInterval(function (){
         if (timeLeft > 1){
             timerEl.textContent = timeLeft + " seconds remaining";
             timeLeft--;
-        } else if (timeLeft ===1){
+        } else if (timeLeft === 1){
             timerEl.textContent = timeLeft + " second remaining";
+            timeLeft--;
         } else {
-            timerEl.textContent = "";
+            timerEl.textContent = "Time is up";
             clearInterval(timeInterval);
             //may need to call a function here for end of game + also need to reduce time by 10 when question wrong
         }
