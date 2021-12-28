@@ -24,17 +24,36 @@ const introEl = document.querySelector(".intro");
 const qAndAEl = document.querySelector(".qAndA");
 const questionEl = document.querySelector("#questions");
 const answerEl = document.querySelector("#answers");
-const returnBtnEl = document.querySelector("#returnHome")
+const returnBtnEl = document.querySelector("#returnHome");
+const timerEl = document.querySelector("#intervalTimer")
 
 let score = 0;
 
 // - start button click event
-//startBtnEl.addEventListener("click", /*start game function here*/);
+startBtnEl.addEventListener("click", function timer(){
+    var timeLeft = 100;
+
+    var timeInterval = setInterval(function (){
+        if (timeLeft > 1){
+            timerEl.textContent = timeLeft + " seconds remaining";
+            timeLeft--;
+        } else if (timeLeft ===1){
+            timerEl.textContent = timeLeft + " second remaining";
+        } else {
+            timerEl.textContent = "";
+            clearInterval(timeInterval);
+            //may need to call a function here for end of game + also need to reduce time by 10 when question wrong
+        }
+    }, 1000);
+});
 
 // return button on highscore page
 returnBtnEl.addEventListener("click", function(){
     location.assign("index.html")
 });
+
+// timer function with start time of 100 seconds
+
 
 const quizQuestions = [
     {question: "What does HTML stand for?",
