@@ -21,7 +21,7 @@ main {
     padding: 20px 0 20px 0;
 }
 
-.qAndA {
+.container {
     display: flex;
     width: 50vw;
     flex-wrap: wrap;
@@ -43,7 +43,7 @@ main {
     cursor: pointer;
 }
 
-#questions {
+#qAndAns {
     display: none;
 }
 

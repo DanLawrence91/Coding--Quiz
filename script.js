@@ -10,19 +10,19 @@
 // - if question is answered incorrectly the timer will reduce by 10 seconds
 // - once timer is over (clear interval) or all questions are answered the game will end
 // - once time is up will display score and user will input initials using form and submit button
-// - highscores page linked to main page - this is the time html changes
+// - highscores page linked to main page - this is the time html changes - DONE
 // - once initials are entered will be taken to highscore.html - look at score apps from class in week 4
 // - this will display all scores save through local storage
 // - on highscore page you can either go back to main page to start again or clear highscores
 // - if highscores cleared the leaderboard disappears and you can then click button to go back
-// - main page once quiz starts will have highscores link in top corner, timer in other corner and then question
-// - html will not change as questions are answered and instead will change from display hidden to display visible
+// - main page once quiz starts will have highscores link in top corner, timer in other corner and then question - DONE
+// - html will not change as questions are answered
 // - highscores button disabled whilst quiz in progress
 
 const startBtnEl = document.querySelector("#startButton");
 const introEl = document.querySelector(".intro");
-const qAndAEl = document.querySelector(".qAndA");
-const questionEl = document.querySelector("#questions");
+const containerEl = document.querySelector(".container");
+const qAndAnsEl = document.querySelector("#qAndAns");
 const landingEl = document.querySelector("#landingPage");
 const answerEl = document.querySelector("#answers");
 const timerEl = document.querySelector("#intervalTimer")
@@ -34,11 +34,11 @@ const leaderboard = document.querySelector(".high-score")
 startBtnEl.addEventListener("click", function startQuiz(){
     var timeLeft = 60;
     
-    if (questionEl.display == "none"){
-        questionEl.setAttribute("style", "display:none");
+    if (qAndAnsEl.display == "none"){
+        qAndAnsEl.setAttribute("style", "display:none");
         landingEl.setAttribute("style", "display:block");
     } else {
-        questionEl.setAttribute("style", "display:block");
+        qAndAnsEl.setAttribute("style", "display:block");
         landingEl.setAttribute("style", "display:none");
     }
 
