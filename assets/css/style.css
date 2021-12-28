@@ -39,6 +39,10 @@ main {
     margin: 2px;
 }
 
+.hide {
+    display: none;
+}
+
 #startButton:hover {
     cursor: pointer;
 }

@@ -20,10 +20,10 @@
 // - highscores button disabled whilst quiz in progress
 
 const startBtnEl = document.querySelector("#startButton");
-const introEl = document.querySelector(".intro");
+const landingEl = document.querySelector("#landingPage");
 const containerEl = document.querySelector(".container");
 const qAndAnsEl = document.querySelector("#qAndAns");
-const landingEl = document.querySelector("#landingPage");
+const questionsEl = document.querySelector("#questions")
 const answerEl = document.querySelector("#answers");
 const timerEl = document.querySelector("#intervalTimer")
 const returnBtnEl = document.querySelector("#returnHome");
@@ -31,7 +31,7 @@ const clearEl = document.querySelector("clearHS");
 const leaderboard = document.querySelector(".high-score")
 
 // - start button click event to set timer going and display first question
-startBtnEl.addEventListener("click", function startQuiz(){
+startBtnEl.addEventListener("click", function beginQuiz(){
     var timeLeft = 60;
     
     if (qAndAnsEl.display == "none"){
@@ -55,8 +55,17 @@ startBtnEl.addEventListener("click", function startQuiz(){
             //may need to call a function here for end of game + also need to reduce time by 10 when question wrong
         }
     }, 1000);
+    
+    quizStart();
 
 });
+
+let currentQuestion = 0;
+let score = 0
+
+function quizStart (){
+    questionsEl.innerHTML = quizQuestions[currentQuestion].question
+}
 
 const quizQuestions = [
     {question: "What does HTML stand for?",
