@@ -29,22 +29,19 @@ const returnBtnEl = document.querySelector("#returnHome");
 const clearEl = document.querySelector("clearHS");
 const leaderboard = document.querySelector(".high-score");
 const chosenAnswer = Array.from(document.getElementsByClassName("chosenAns"));
-const highScoresEl = document.querySelector("#highScores");
+const rightEl = document.querySelector("#right");
+const wrongEl = document.querySelector("#wrong");
+const highScoresContainerEl = document.querySelector("#highScoresContainer");
 const usernameEl = document.querySelector("#username");
 const submitScoreEl = document.querySelector("#submitScore");
 const finalScore = document.querySelector("#finalScore");
-const rightEl = document.querySelector("#right");
-const wrongEl = document.querySelector("#wrong");
-
-
 
 
 let score = 0;
 let currentQuestionIndex = "";
 let currentQuestion = {};
-var selectedAnswer = {};
-
-
+let selectedAnswer = {};
+let lastHighScore = "";
 
 // - start button click event to set timer going and display first question
 startBtnEl.addEventListener("click", beginQuiz);
@@ -54,9 +51,28 @@ usernameEl.addEventListener("keyup", function(){
     submitScoreEl.disabled = !usernameEl.value;
 })
 
+const hS = JSON.parse(localStorage.getItem("hS")) || [];
+
+console.log(hS)
+
 //prevent form default when entering initials
 submitScoreEl.addEventListener("click", function(event){
     event.preventDefault();
+    //saved scores to create high score list
+    const savedScores = {
+        score: lastHighScore,
+        intials: usernameEl.value,
+    }
+    //add saved highscores to an array
+    hS.push(savedScores);
+    console.log(hS);
+    
+    //sort highscores into list based on highest score first
+    hS.sort(function(a,b){
+        return b.score-a.score
+    })
+
+    localStorage.setItem("hS", JSON.stringify(hS));
 })
 
 var timeLeft = 60;
@@ -64,6 +80,7 @@ var timeLeft = 60;
 //function to for quiz to start that runs when click event above is ran
 function beginQuiz(){
     
+    //changes display from intro landing page to first question when function runs
     if (qAndAnsEl.display == "none"){
         qAndAnsEl.setAttribute("style", "display:none");
         landingEl.setAttribute("style", "display:block");
@@ -79,7 +96,7 @@ function beginQuiz(){
         } else {
             timerEl.textContent = timeLeft;
             clearInterval(timeInterval);
-            highScoresEl.setAttribute("style", "display:block");
+            highScoresContainerEl.setAttribute("style", "display:block");
             qAndAnsEl.setAttribute("style", "display:none");
         }
 
@@ -97,7 +114,7 @@ function showQuizQues() {
 
     //if no questions left will show final page where score is shown
     if (quizQuestions.length === 0){
-        highScoresEl.setAttribute("style", "display:block");
+        highScoresContainerEl.setAttribute("style", "display:block");
         qAndAnsEl.setAttribute("style", "display:none");
         timerEl.textContent = "Time: " + timeLeft
         return
@@ -122,6 +139,7 @@ function showQuizQues() {
 var questionClick = function(){
     for (var j = 0; j < chosenAnswer.length; j++){
         var answer = chosenAnswer[j];
+        //when answer is clicked the number allocated to the button matches with the number allocated to the answer to work out if correct or not
         answer.addEventListener("click", function(k){
             var selectedOption = k.target;
             selectedAnswer = selectedOption.dataset["number"];
@@ -135,7 +153,7 @@ var questionClick = function(){
                 timeLeft--
             }
             
-
+            //show whether the last question the user got was right or wrong
             if (selectedAnswer == currentQuestion.correct){
                 rightEl.setAttribute("style", "display:block");
                 wrongEl.setAttribute("style", "display:none")
@@ -145,13 +163,19 @@ var questionClick = function(){
             }
             showQuizQues()
 
+            //makes the score whatever the time left was
             score = timeLeft;
             localStorage.setItem("lastScore", score)
-            const lastHighScore = localStorage.getItem("lastScore");
+            lastHighScore = localStorage.getItem("lastScore");
             finalScore.innerText = lastHighScore;
         })
     }
 }
+
+
+
+
+//call function to make it work
 questionClick()
 
 //quiz questions in array
