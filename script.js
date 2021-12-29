@@ -130,6 +130,12 @@ var questionClick = function(){
 
             console.log(selectedAnswer == currentQuestion.correct)
 
+            if (selectedAnswer != currentQuestion.correct){
+                timeLeft-=10
+            } else {
+                timeLeft--
+            }
+
             if (selectedAnswer == currentQuestion.correct){
                 rightEl.setAttribute("style", "display:block");
                 wrongEl.setAttribute("style", "display:none")
