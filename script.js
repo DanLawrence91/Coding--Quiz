@@ -32,15 +32,19 @@ const chosenAnswer = Array.from(document.getElementsByClassName("chosenAns"));
 const highScoresEl = document.querySelector("#highScores");
 const usernameEl = document.querySelector("#username");
 const submitScoreEl = document.querySelector("#submitScore");
-const finalScore = document.querySelector("#finalScore")
+const finalScore = document.querySelector("#finalScore");
+const rightEl = document.querySelector("#right");
+const wrongEl = document.querySelector("#wrong");
 
 
-const lastHighScore = localStorage.getItem("lastScore")
+const lastHighScore = localStorage.getItem("lastScore");
 
-let score = 0
-let currentQuestionIndex = ""
+let score = 0;
+let currentQuestionIndex = "";
+let currentQuestion = {};
+var selectedAnswer = {};
 
-finalScore.innerText = lastHighScore
+finalScore.innerText = lastHighScore;
 
 // - start button click event to set timer going and display first question
 startBtnEl.addEventListener("click", beginQuiz);
@@ -69,15 +73,11 @@ function beginQuiz(){
     }
 
     var timeInterval = setInterval(function (){
-        if (timeLeft > 1){
-            timerEl.textContent = timeLeft + " seconds remaining";
-            timeLeft--;
-
-        } else if (timeLeft === 1){
-            timerEl.textContent = timeLeft + " second remaining";
+        if (timeLeft >= 1){
+            timerEl.textContent = "Time: " + timeLeft
             timeLeft--;
         } else {
-            timerEl.textContent = "Time is up!";
+            timerEl.textContent = timeLeft;
             clearInterval(timeInterval);
             highScoresEl.setAttribute("style", "display:block");
             qAndAnsEl.setAttribute("style", "display:none");
@@ -92,7 +92,6 @@ function beginQuiz(){
     localStorage.setItem("lastScore", score)
     currentQuestionIndex = 0;
     showQuizQues();
-    console.log(score)
     
 }
 
@@ -102,12 +101,12 @@ function showQuizQues() {
     if (quizQuestions.length === 0){
         highScoresEl.setAttribute("style", "display:block");
         qAndAnsEl.setAttribute("style", "display:none");
-        timerEl.textContent = "Quiz finished!"
+        timerEl.textContent = "Time: " + timeLeft
         return
     };
 
     //set variable to pick question from array below and then show this question
-    var currentQuestion = quizQuestions[currentQuestionIndex]
+    currentQuestion = quizQuestions[currentQuestionIndex]
     questionsEl.innerText = currentQuestion.question;
 
     //loop to run through the question and answers for each value in array and show corresponding answers with question
@@ -122,61 +121,72 @@ function showQuizQues() {
 }
 
 //when answer is clicked it will move to next question as function to show questions will run again with the most recent question removed
-for (var j = 0; j < chosenAnswer.length; j++){
-    var answer = chosenAnswer[j];
-    answer.addEventListener("click", function(k){
-        var selectedOption = k.target;
-        var selectedAnswer = selectedOption.dataset["number"];
-        console.log(selectedAnswer);
-        showQuizQues()
-    })
-}
+var questionClick = function(){
+    for (var j = 0; j < chosenAnswer.length; j++){
+        var answer = chosenAnswer[j];
+        answer.addEventListener("click", function(k){
+            var selectedOption = k.target;
+            selectedAnswer = selectedOption.dataset["number"];
 
+            console.log(selectedAnswer == currentQuestion.correct)
+
+            if (selectedAnswer == currentQuestion.correct){
+                rightEl.setAttribute("style", "display:block");
+                wrongEl.setAttribute("style", "display:none")
+            } else {
+                wrongEl.setAttribute("style", "display:block");
+                rightEl.setAttribute("style", "display:none");
+            }
+            showQuizQues()
+        })
+    }
+}
+questionClick()
 
 //quiz questions in array
 let quizQuestions = [
     {
         question: "What does HTML stand for?",
-        answer1: "HyperText Markup Langauge",
-        answer2: "HelloText My Learning",
-        answer3: "HyperText Means Language",
-        answer4: "HeavyTraffic Means Late",
-        correct: 1
+        answer0: "HyperText Markup Langauge",
+        answer1: "HelloText My Learning",
+        answer2: "HyperText Means Language",
+        answer3: "HeavyTraffic Means Late",
+        correct: 0
     },
 
     {
         question: "What tag is used to add CSS to HTML?",
-        answer1: "<img>",
-        answer2: "<script>",
-        answer3: "<link>",
-        answer4: "<a>",
-        correct: 3
+        answer0: "<img>",
+        answer1: "<script>",
+        answer2: "<link>",
+        answer3: "<a>",
+        correct: 2
     },
 
     {
         question: "How many values does boolean have in Javascript?",
-        answer1: "3",
-        answer2: "10",
-        answer3: "0",
-        answer4: "2",
-        correct: 4
-    },
-
-    {
-        question: "Who invented Javascript?",
-        answer1: "Elon Musk",
-        answer2: "Steve Jobs",
-        answer3: "Brendan Eich",
-        answer4: "Bill Gates",
+        answer0: "3",
+        answer1: "10",
+        answer2: "0",
+        answer3: "2",
         correct: 3
     },
 
     {
-        question: "When was Javascript invented?",
-        answer1: "1997",
-        answer2: "1995",
-        answer3: "2001",
-        answer4: "1989",
+        question: "Who invented Javascript?",
+        answer0: "Elon Musk",
+        answer1: "Steve Jobs",
+        answer2: "Brendan Eich",
+        answer3: "Bill Gates",
         correct: 2
+    },
+
+    {
+        question: "When was Javascript invented?",
+        answer0: "1997",
+        answer1: "1995",
+        answer2: "2001",
+        answer3: "1989",
+        correct: 1
     },
 ]

@@ -62,6 +62,14 @@ main {
     display: none;
 }
 
+#right {
+    display: none;
+}
+
+#wrong {
+    display: none;
+}
+
 /* highscore page styling below */
 .highscoreStyle {
     display: flex;
