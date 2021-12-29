@@ -29,6 +29,7 @@ const timerEl = document.querySelector("#intervalTimer")
 const returnBtnEl = document.querySelector("#returnHome");
 const clearEl = document.querySelector("clearHS");
 const leaderboard = document.querySelector(".high-score")
+const chosenAnswer = Array.from(document.getElementsByClassName("chosenAns"))
 
 let score = 0
 let currentQuestionIndex = ""
@@ -62,80 +63,73 @@ function beginQuiz(){
     }, 1000);
     currentQuestionIndex = 0;
     showQuizQues();
-}
-
-function showQuizQues (){
-    setQuizQues(quizQuestions[currentQuestionIndex])
-}
-
-function setQuizQues (question){
-    questionsEl.innerHTML = quizQuestions[currentQuestionIndex].question;
-    question.answer.forEach(answer => {
-        const button = document.createElement('button')
-        button.innerText = answer.text
-        button.classList.add('button')
-        if (answer.correct) {
-            button.dataset.correct = answer.correct
-        }
-        button.addEventListener("click", selectedAnswer)
-        answerEl.appendChild(button)
-    });
     
 }
 
-function selectedAnswer() {
+function showQuizQues() {
+    var currentQuestion = quizQuestions[currentQuestionIndex]
+    questionsEl.innerText = currentQuestion.question;
+    chosenAnswer.forEach(answer => {
+        var number = answer.dataset["number"];
+        answer.innerText = currentQuestion["answer" + number];
+    });
 
-
+    quizQuestions.splice(currentQuestionIndex, 1)
+    console.log(quizQuestions)
 }
 
-const quizQuestions = [
+chosenAnswer.forEach(answer => {
+    answer.addEventListener("click", function(i){
+        var selectedOption = i.target;
+        var selectedAnswer = selectedOption.dataset["number"];
+        console.log(selectedAnswer);
+        showQuizQues()
+    })
+})
+
+let quizQuestions = [
     {
         question: "What does HTML stand for?",
-        answer: [
-            {text: "HyperText Markup Langauge", correct: true},
-            {text: "HelloText My Learning", correct: false},
-            {text: "HyperText Means Language", correct: false},
-            {text: "HeavyTraffic Means Late", correct: false}
-        ],
+        answer1: "HyperText Markup Langauge",
+        answer2: "HelloText My Learning",
+        answer3: "HyperText Means Language",
+        answer4: "HeavyTraffic Means Late",
+        correct: 1
     },
 
     {
         question: "What tag is used to add CSS to HTML?",
-        answer: [
-            {text: "<img>", correct: false},
-            {text: "<script>", correct: false},
-            {text: "<link>", correct: true},
-            {text: "<a>", correct: false}
-        ],
+        answer1: "<img>",
+        answer2: "<script>",
+        answer3: "<link>",
+        answer4: "<a>",
+        correct: 3
     },
 
     {
         question: "How many values does boolean have in Javascript?",
-        answer: [
-            {text: "3", correct: false},
-            {text: "10", correct: false},
-            {text: "0", correct: false},
-            {text: "2", correct: true}
-        ],
+        answer1: "3",
+        answer2: "10",
+        answer3: "0",
+        answer4: "2",
+        correct: 4
     },
 
     {
         question: "Who invented Javascript?",
-        answer: [
-            {text: "Elon Musk", correct: false},
-            {text: "Steve Jobs", correct: false},
-            {text: "Brendan Eich", correct: true},
-            {text: "Tim Cook", correct: false}
-        ],
+        answer1: "Elon Musk",
+        answer2: "Steve Jobs",
+        answer3: "Brendan Eich",
+        answer4: "Bill Gates",
+        correct: 3
     },
 
     {
         question: "When was Javascript invented?",
-        answer: [
-            {text: "1997", correct: false},
-            {text: "1995", correct: true},
-            {text: "2001", correct: false},
-            {text: "2010", correct: false}
-        ],
+        answer1: "1997",
+        answer2: "1995",
+        answer3: "2001",
+        answer4: "1989",
+        correct: 2
     },
 ]
