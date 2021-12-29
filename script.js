@@ -11,13 +11,12 @@
 // - once timer is over (clear interval) or all questions are answered the game will end
 // - once time is up will display score and user will input initials using form and submit button
 // - highscores page linked to main page - this is the time html changes - DONE
-// - once initials are entered will be taken to highscore.html (look at score apps from class in week 4)
+// - once initials are entered and submit pressed will be taken to highscore.html - DONE
 // - this will display all scores save through local storage
 // - on highscore page you can either go back to main page to start again or clear highscores
 // - if highscores cleared the leaderboard disappears and you can then click button to go back
 // - main page once quiz starts will have highscores link in top corner, timer in other corner and then question - DONE
 // - html will not change as questions are answered - DONE
-// - highscores button disabled whilst quiz in progress
 
 const startBtnEl = document.querySelector("#startButton");
 const landingEl = document.querySelector("#landingPage");
@@ -35,6 +34,7 @@ const usernameEl = document.querySelector("#username");
 const submitScoreEl = document.querySelector("#submitScore");
 const finalScore = document.querySelector("#finalScore")
 
+
 const lastHighScore = localStorage.getItem("lastScore")
 
 let score = 0
@@ -45,20 +45,20 @@ finalScore.innerText = lastHighScore
 // - start button click event to set timer going and display first question
 startBtnEl.addEventListener("click", beginQuiz);
 
+//won't let user submit until initials entered
 usernameEl.addEventListener("keyup", function(){
     submitScoreEl.disabled = !usernameEl.value;
-    console.log(usernameEl.value)
 })
 
+//prevent form default when entering initials
 submitScoreEl.addEventListener("click", function(event){
     event.preventDefault();
-    console.log("save pressed")
 })
 
+var timeLeft = 60;
+
+//function to for quiz to start that runs when click event above is ran
 function beginQuiz(){
-    var timeLeft = 60;
-    
-    localStorage.setItem("lastScore", score)
     
     if (qAndAnsEl.display == "none"){
         qAndAnsEl.setAttribute("style", "display:none");
@@ -72,6 +72,7 @@ function beginQuiz(){
         if (timeLeft > 1){
             timerEl.textContent = timeLeft + " seconds remaining";
             timeLeft--;
+
         } else if (timeLeft === 1){
             timerEl.textContent = timeLeft + " second remaining";
             timeLeft--;
@@ -80,22 +81,24 @@ function beginQuiz(){
             clearInterval(timeInterval);
             highScoresEl.setAttribute("style", "display:block");
             qAndAnsEl.setAttribute("style", "display:none");
-            //may need to call a function here for end of game + also need to reduce time by 10 when question wrong
         }
 
         if (quizQuestions.length === 0){
             clearInterval(timeInterval);
         }
 
-
     }, 1000);
+    score = timeLeft
+    localStorage.setItem("lastScore", score)
     currentQuestionIndex = 0;
     showQuizQues();
+    console.log(score)
     
 }
 
 function showQuizQues() {
 
+    //if no questions left will show final page where score is shown
     if (quizQuestions.length === 0){
         highScoresEl.setAttribute("style", "display:block");
         qAndAnsEl.setAttribute("style", "display:none");
@@ -103,18 +106,22 @@ function showQuizQues() {
         return
     };
 
+    //set variable to pick question from array below and then show this question
     var currentQuestion = quizQuestions[currentQuestionIndex]
     questionsEl.innerText = currentQuestion.question;
 
+    //loop to run through the question and answers for each value in array and show corresponding answers with question
     for (var i = 0; i < chosenAnswer.length; i++){
         var answer = chosenAnswer[i];
         var number = answer.dataset["number"];
         answer.innerText = currentQuestion["answer" + number];
     }
 
+    //removes question from array each time one answered
     quizQuestions.splice(currentQuestionIndex, 1)
 }
 
+//when answer is clicked it will move to next question as function to show questions will run again with the most recent question removed
 for (var j = 0; j < chosenAnswer.length; j++){
     var answer = chosenAnswer[j];
     answer.addEventListener("click", function(k){
@@ -125,6 +132,8 @@ for (var j = 0; j < chosenAnswer.length; j++){
     })
 }
 
+
+//quiz questions in array
 let quizQuestions = [
     {
         question: "What does HTML stand for?",
