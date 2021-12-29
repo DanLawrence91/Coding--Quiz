@@ -58,6 +58,10 @@ main {
     display: none;
 }
 
+#highScores {
+    display: none;
+}
+
 /* highscore page styling below */
 .highscoreStyle {
     display: flex;

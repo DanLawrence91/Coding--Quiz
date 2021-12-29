@@ -1,12 +1,12 @@
 // - Landing page has title followed by some text describing the game - DONE
 // - Start button on page will then hide this text and show first question when pressed - DONE
 // - questions and answers are hidden until start is pressed - DONE
-// - questions will only appear one at a time and next question won't appear until previous one answered
+// - questions will only appear one at a time and next question won't appear until previous one answered - DONE
 // - timer in top corner that begins when start is pressed (set interval) - DONE
-// - need to then show question with four answer buttons for user to select one
+// - need to then show question with four answer buttons for user to select one - DONE
 // - once first question is answered this then shows whether correct or incorrect for brief period (use interval)
-// - will then move to next question and display this with first question hidden
-// - This will repeat for however many questions written
+// - will then move to next question and display this with first question hidden - DONE
+// - This will repeat for however many questions written - DONE
 // - if question is answered incorrectly the timer will reduce by 10 seconds
 // - once timer is over (clear interval) or all questions are answered the game will end
 // - once time is up will display score and user will input initials using form and submit button
@@ -30,6 +30,7 @@ const returnBtnEl = document.querySelector("#returnHome");
 const clearEl = document.querySelector("clearHS");
 const leaderboard = document.querySelector(".high-score")
 const chosenAnswer = Array.from(document.getElementsByClassName("chosenAns"))
+const highScoresEl = document.querySelector("#highScores")
 
 let score = 0
 let currentQuestionIndex = ""
@@ -60,6 +61,11 @@ function beginQuiz(){
             clearInterval(timeInterval);
             //may need to call a function here for end of game + also need to reduce time by 10 when question wrong
         }
+
+        if (quizQuestions.length === 0){
+            clearInterval(timeInterval);
+        }
+
     }, 1000);
     currentQuestionIndex = 0;
     showQuizQues();
@@ -67,6 +73,14 @@ function beginQuiz(){
 }
 
 function showQuizQues() {
+
+    if (quizQuestions.length === 0){
+        highScoresEl.setAttribute("style", "display:block");
+        qAndAnsEl.setAttribute("style", "display:none");
+        timerEl.textContent = "Quiz finished!"
+        return
+    };
+
     var currentQuestion = quizQuestions[currentQuestionIndex]
     questionsEl.innerText = currentQuestion.question;
 
