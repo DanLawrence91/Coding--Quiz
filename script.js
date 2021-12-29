@@ -16,7 +16,7 @@
 // - on highscore page you can either go back to main page to start again or clear highscores
 // - if highscores cleared the leaderboard disappears and you can then click button to go back
 // - main page once quiz starts will have highscores link in top corner, timer in other corner and then question - DONE
-// - html will not change as questions are answered
+// - html will not change as questions are answered - DONE
 // - highscores button disabled whilst quiz in progress
 
 const startBtnEl = document.querySelector("#startButton");
@@ -28,18 +28,37 @@ const answerEl = document.querySelector("#answers");
 const timerEl = document.querySelector("#intervalTimer")
 const returnBtnEl = document.querySelector("#returnHome");
 const clearEl = document.querySelector("clearHS");
-const leaderboard = document.querySelector(".high-score")
-const chosenAnswer = Array.from(document.getElementsByClassName("chosenAns"))
-const highScoresEl = document.querySelector("#highScores")
+const leaderboard = document.querySelector(".high-score");
+const chosenAnswer = Array.from(document.getElementsByClassName("chosenAns"));
+const highScoresEl = document.querySelector("#highScores");
+const usernameEl = document.querySelector("#username");
+const submitScoreEl = document.querySelector("#submitScore");
+const finalScore = document.querySelector("#finalScore")
+
+const lastHighScore = localStorage.getItem("lastScore")
 
 let score = 0
 let currentQuestionIndex = ""
 
+finalScore.innerText = lastHighScore
+
 // - start button click event to set timer going and display first question
 startBtnEl.addEventListener("click", beginQuiz);
 
+usernameEl.addEventListener("keyup", function(){
+    submitScoreEl.disabled = !usernameEl.value;
+    console.log(usernameEl.value)
+})
+
+submitScoreEl.addEventListener("click", function(event){
+    event.preventDefault();
+    console.log("save pressed")
+})
+
 function beginQuiz(){
     var timeLeft = 60;
+    
+    localStorage.setItem("lastScore", score)
     
     if (qAndAnsEl.display == "none"){
         qAndAnsEl.setAttribute("style", "display:none");
@@ -67,6 +86,7 @@ function beginQuiz(){
         if (quizQuestions.length === 0){
             clearInterval(timeInterval);
         }
+
 
     }, 1000);
     currentQuestionIndex = 0;
