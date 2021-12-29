@@ -59,6 +59,8 @@ function beginQuiz(){
         } else {
             timerEl.textContent = "Time is up!";
             clearInterval(timeInterval);
+            highScoresEl.setAttribute("style", "display:block");
+            qAndAnsEl.setAttribute("style", "display:none");
             //may need to call a function here for end of game + also need to reduce time by 10 when question wrong
         }
 
