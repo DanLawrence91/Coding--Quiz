@@ -37,14 +37,14 @@ const rightEl = document.querySelector("#right");
 const wrongEl = document.querySelector("#wrong");
 
 
-const lastHighScore = localStorage.getItem("lastScore");
+
 
 let score = 0;
 let currentQuestionIndex = "";
 let currentQuestion = {};
 var selectedAnswer = {};
 
-finalScore.innerText = lastHighScore;
+
 
 // - start button click event to set timer going and display first question
 startBtnEl.addEventListener("click", beginQuiz);
@@ -88,8 +88,6 @@ function beginQuiz(){
         }
 
     }, 1000);
-    score = timeLeft
-    localStorage.setItem("lastScore", score)
     currentQuestionIndex = 0;
     showQuizQues();
     
@@ -130,11 +128,13 @@ var questionClick = function(){
 
             console.log(selectedAnswer == currentQuestion.correct)
 
-            if (selectedAnswer != currentQuestion.correct){
+            //need quiz to end if time under 10 seconds and another wrong answer or keep going if over 10 seconds
+            if (selectedAnswer != currentQuestion.correct && timeLeft > 10){
                 timeLeft-=10
             } else {
                 timeLeft--
             }
+            
 
             if (selectedAnswer == currentQuestion.correct){
                 rightEl.setAttribute("style", "display:block");
@@ -144,6 +144,11 @@ var questionClick = function(){
                 rightEl.setAttribute("style", "display:none");
             }
             showQuizQues()
+
+            score = timeLeft;
+            localStorage.setItem("lastScore", score)
+            const lastHighScore = localStorage.getItem("lastScore");
+            finalScore.innerText = lastHighScore;
         })
     }
 }
