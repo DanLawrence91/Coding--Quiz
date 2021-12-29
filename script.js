@@ -69,23 +69,25 @@ function beginQuiz(){
 function showQuizQues() {
     var currentQuestion = quizQuestions[currentQuestionIndex]
     questionsEl.innerText = currentQuestion.question;
-    chosenAnswer.forEach(answer => {
+
+    for (var i = 0; i < chosenAnswer.length; i++){
+        var answer = chosenAnswer[i];
         var number = answer.dataset["number"];
         answer.innerText = currentQuestion["answer" + number];
-    });
+    }
 
     quizQuestions.splice(currentQuestionIndex, 1)
-    console.log(quizQuestions)
 }
 
-chosenAnswer.forEach(answer => {
-    answer.addEventListener("click", function(i){
-        var selectedOption = i.target;
+for (var j = 0; j < chosenAnswer.length; j++){
+    var answer = chosenAnswer[j];
+    answer.addEventListener("click", function(k){
+        var selectedOption = k.target;
         var selectedAnswer = selectedOption.dataset["number"];
         console.log(selectedAnswer);
         showQuizQues()
     })
-})
+}
 
 let quizQuestions = [
     {
