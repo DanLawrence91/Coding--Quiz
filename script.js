@@ -61,7 +61,7 @@ submitScoreEl.addEventListener("click", function(event){
     //saved scores to create high score list
     const savedScores = {
         score: lastHighScore,
-        intials: usernameEl.value,
+        initials: usernameEl.value,
     }
     //add saved highscores to an array
     hS.push(savedScores);
@@ -72,7 +72,9 @@ submitScoreEl.addEventListener("click", function(event){
         return b.score-a.score
     })
 
+    //sets highscores into a string in local storage to then be presented on highscores page
     localStorage.setItem("hS", JSON.stringify(hS));
+    //when submit is pressed takes you to highscore page
     location.assign("highscores.html");
 })
 
