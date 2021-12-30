@@ -73,6 +73,7 @@ submitScoreEl.addEventListener("click", function(event){
     })
 
     localStorage.setItem("hS", JSON.stringify(hS));
+    location.assign("highscores.html");
 })
 
 var timeLeft = 60;
