@@ -1,5 +1,4 @@
-const timerEl = document.querySelector("#intervalTimer")
-const returnBtnEl = document.querySelector("#returnHome");
+const timerEl = document.querySelector("#intervalTimer");
 const clearEl = document.querySelector("#clearHS");
 const leaderboardEl = document.querySelector("#high-score")
 
@@ -22,11 +21,6 @@ function renderHS(){
 }
 
 renderHS ()
-
-// return button on highscore page
-returnBtnEl.addEventListener("click", function(){
-    location.assign("index.html");
-});
 
 //clear highscore from local storage
 clearEl.addEventListener("click", function(){
