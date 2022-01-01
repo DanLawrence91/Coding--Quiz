@@ -4,17 +4,17 @@
 // - questions will only appear one at a time and next question won't appear until previous one answered - DONE
 // - timer in top corner that begins when start is pressed (set interval) - DONE
 // - need to then show question with four answer buttons for user to select one - DONE
-// - once first question is answered this then shows whether correct or incorrect for brief period (use interval)
+// - once first question is answered this then shows whether correct or incorrect for brief period (use interval) - DONE
 // - will then move to next question and display this with first question hidden - DONE
 // - This will repeat for however many questions written - DONE
-// - if question is answered incorrectly the timer will reduce by 10 seconds
-// - once timer is over (clear interval) or all questions are answered the game will end
-// - once time is up will display score and user will input initials using form and submit button
+// - if question is answered incorrectly the timer will reduce by 10 seconds - DONE
+// - once timer is over (clear interval) or all questions are answered the game will end - DONE
+// - once time is up will display score and user will input initials using form and submit button - DONE
 // - highscores page linked to main page - this is the time html changes - DONE
 // - once initials are entered and submit pressed will be taken to highscore.html - DONE
-// - this will display all scores save through local storage
-// - on highscore page you can either go back to main page to start again or clear highscores
-// - if highscores cleared the leaderboard disappears and you can then click button to go back
+// - this will display all scores save through local storage - DONE
+// - on highscore page you can either go back to main page to start again or clear highscores - DONE
+// - if highscores cleared the leaderboard disappears and you can then click button to go back - DONE
 // - main page once quiz starts will have highscores link in top corner, timer in other corner and then question - DONE
 // - html will not change as questions are answered - DONE
 
@@ -51,9 +51,8 @@ usernameEl.addEventListener("keyup", function(){
     submitScoreEl.disabled = !usernameEl.value;
 })
 
+//turn highscores into an objedct so can be accessed for leaderboard on other page
 const hS = JSON.parse(localStorage.getItem("hS")) || [];
-
-console.log(hS)
 
 //prevent form default when entering initials
 submitScoreEl.addEventListener("click", function(event){
@@ -92,6 +91,7 @@ function beginQuiz(){
         landingEl.setAttribute("style", "display:none");
     }
 
+    //interval set with text content to show how long is left, also changes display to show submit area for highscores once done
     var timeInterval = setInterval(function (){
         if (timeLeft >= 1){
             timerEl.textContent = "Time: " + timeLeft
@@ -127,7 +127,7 @@ function showQuizQues() {
     currentQuestion = quizQuestions[currentQuestionIndex]
     questionsEl.innerText = currentQuestion.question;
 
-    //loop to run through the question and answers for each value in array and show corresponding answers with question
+    //loop to run through the question and answers for each value in array and show corresponding answers with question and button on html page
     for (var i = 0; i < chosenAnswer.length; i++){
         var answer = chosenAnswer[i];
         var number = answer.dataset["number"];
@@ -147,8 +147,6 @@ var questionClick = function(){
             var selectedOption = k.target;
             selectedAnswer = selectedOption.dataset["number"];
 
-            console.log(selectedAnswer == currentQuestion.correct)
-
             //need quiz to end if time under 10 seconds and another wrong answer or keep going if over 10 seconds
             if (selectedAnswer != currentQuestion.correct && timeLeft > 10){
                 timeLeft-=10
@@ -166,7 +164,7 @@ var questionClick = function(){
             }
             showQuizQues()
 
-            //makes the score whatever the time left was
+            //makes the score whatever the time left was - trying to make score show 0 if time up?
             score = timeLeft;
             localStorage.setItem("lastScore", score)
             lastHighScore = localStorage.getItem("lastScore");
@@ -174,9 +172,6 @@ var questionClick = function(){
         })
     }
 }
-
-
-
 
 //call function to make it work
 questionClick()
