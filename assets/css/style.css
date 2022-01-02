@@ -34,6 +34,7 @@ ul a:visited {
 
 .intro p {
     padding: 20px 0 20px 0;
+    line-height: 1.2;
 }
 
 .container {
@@ -90,6 +91,15 @@ div a {
 div a:visited {
     text-decoration: none;
     color: black;
+}
+
+ol {
+    padding: 10px;
+}
+
+ol li {
+    padding: 3px;
+    font-size: 18px;
 }
 
 .highscoreStyle {

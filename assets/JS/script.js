@@ -103,9 +103,10 @@ function beginQuiz(){
             qAndAnsEl.setAttribute("style", "display:none");
         }
 
-        if (quizQuestions.length === 0){
-            clearInterval(timeInterval);
-        }
+        //stops timer when gets to last question rather than after last question
+        // if (quizQuestions.length === 0){
+        //     clearInterval(timeInterval);
+        // }
 
     }, 1000);
     currentQuestionIndex = 0;
@@ -119,7 +120,7 @@ function showQuizQues() {
     if (quizQuestions.length === 0){
         highScoresContainerEl.setAttribute("style", "display:block");
         qAndAnsEl.setAttribute("style", "display:none");
-        timerEl.textContent = "Time: " + timeLeft
+        timerEl.setAttribute("style", "display:none") //check stopping timer when no questions left as timer just stopped above when got to last questionm
         return
     };
 
@@ -150,6 +151,8 @@ var questionClick = function(){
             //need quiz to end if time under 10 seconds and another wrong answer or keep going if over 10 seconds
             if (selectedAnswer != currentQuestion.correct && timeLeft > 10){
                 timeLeft-=10
+            } else if (selectedAnswer != currentQuestion.correct && timeLeft <= 10){
+                timeLeft = 0
             } else {
                 timeLeft--
             }
@@ -165,8 +168,16 @@ var questionClick = function(){
             showQuizQues()
 
             //makes the score whatever the time left was - trying to make score show 0 if time up?
-            score = timeLeft;
-            localStorage.setItem("lastScore", score)
+            if (quizQuestions.length === 0){
+                score = timeLeft;
+            }
+
+            //if no time left then score will be 0
+            if (timeLeft == 0){
+                score = 0;
+            }
+
+            localStorage.setItem("lastScore", score);
             lastHighScore = localStorage.getItem("lastScore");
             finalScore.innerText = lastHighScore;
         })
@@ -180,46 +191,46 @@ questionClick()
 let quizQuestions = [
     {
         question: "What does HTML stand for?",
-        answer0: "HyperText Markup Langauge",
-        answer1: "HelloText My Learning",
-        answer2: "HyperText Means Language",
-        answer3: "HeavyTraffic Means Late",
-        correct: 0
+        answer1: "HyperText Markup Langauge",
+        answer2: "HelloText My Learning",
+        answer3: "HyperText Means Language",
+        answer4: "HeavyTraffic Means Late",
+        correct: 1
     },
 
     {
-        question: "What tag is used to add CSS to HTML?",
-        answer0: "<img>",
-        answer1: "<script>",
-        answer2: "<link>",
-        answer3: "<a>",
-        correct: 2
-    },
-
-    {
-        question: "How many values does boolean have in Javascript?",
-        answer0: "3",
-        answer1: "10",
-        answer2: "0",
-        answer3: "2",
+        question: "What tag is used to add an external CSS file to HTML?",
+        answer1: "<img>",
+        answer2: "<script>",
+        answer3: "<link>",
+        answer4: "<a>",
         correct: 3
     },
 
     {
+        question: "How many values does boolean have in Javascript?",
+        answer1: "3",
+        answer2: "10",
+        answer3: "0",
+        answer4: "2",
+        correct: 4
+    },
+
+    {
         question: "Who invented Javascript?",
-        answer0: "Elon Musk",
-        answer1: "Steve Jobs",
-        answer2: "Brendan Eich",
-        answer3: "Bill Gates",
-        correct: 2
+        answer1: "Elon Musk",
+        answer2: "Steve Jobs",
+        answer3: "Brendan Eich",
+        answer4: "Bill Gates",
+        correct: 3
     },
 
     {
         question: "When was Javascript invented?",
-        answer0: "1997",
-        answer1: "1995",
-        answer2: "2001",
-        answer3: "1989",
-        correct: 1
+        answer1: "1997",
+        answer2: "1995",
+        answer3: "2001",
+        answer4: "1989",
+        correct: 2
     },
 ]
