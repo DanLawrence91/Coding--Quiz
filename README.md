@@ -8,7 +8,18 @@
 
 ## Quiz
 
-- The quiz 
+- The quiz can be found by clicking [deployed project](https://danlawrence91.github.io/Coding--Quiz/)
+
+- The following screenshots show some of the functionality of the quiz as it is working:
+
+- This image is a screenshot of the first page of the quiz where you can either being the quiz or check out the high scores:
+![Screenshot of front page of quiz](./images/front-page.png)
+
+- This shows how the question will appear and that the timer has started:
+![Screenshot of first question](./images/first-q.png)
+
+- This shows the final score the user got and how it links to the time left on the clock to get the score:
+![Screenshot of final score from time left](./images/score.png)
 
 ## Future features
 

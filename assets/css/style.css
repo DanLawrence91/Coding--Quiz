@@ -82,6 +82,16 @@ ul a:visited {
 }
 
 /* highscore page styling below */
+div a {
+    text-decoration: none;
+    color: black;
+}
+
+div a:visited {
+    text-decoration: none;
+    color: black;
+}
+
 .highscoreStyle {
     display: flex;
     flex-wrap: wrap;
@@ -99,14 +109,4 @@ ul a:visited {
 
 #clearHS:hover {
     cursor: pointer;
-}
-
-div a {
-    text-decoration: none;
-    color: black;
-}
-
-div a:visited {
-    text-decoration: none;
-    color: black;
 }
