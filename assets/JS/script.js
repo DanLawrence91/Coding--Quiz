@@ -40,8 +40,55 @@ const finalScore = document.querySelector("#finalScore");
 let score = 0;
 let currentQuestionIndex = "";
 let currentQuestion = {};
-let selectedAnswer = {};
 let lastHighScore = "";
+
+//quiz questions in array
+let quizQuestions = [
+    {
+        question: "What does HTML stand for?",
+        answer1: "HyperText Markup Langauge",
+        answer2: "HelloText My Learning",
+        answer3: "HyperText Means Language",
+        answer4: "HeavyTraffic Means Late",
+        correct: 1
+    },
+
+    {
+        question: "What tag is used to add an external CSS file to HTML?",
+        answer1: "<img>",
+        answer2: "<script>",
+        answer3: "<link>",
+        answer4: "<a>",
+        correct: 3
+    },
+
+    {
+        question: "How many values does boolean have in Javascript?",
+        answer1: "3",
+        answer2: "10",
+        answer3: "0",
+        answer4: "2",
+        correct: 4
+    },
+
+    {
+        question: "Who invented Javascript?",
+        answer1: "Elon Musk",
+        answer2: "Steve Jobs",
+        answer3: "Brendan Eich",
+        answer4: "Bill Gates",
+        correct: 3
+    },
+
+    {
+        question: "When was Javascript invented?",
+        answer1: "1997",
+        answer2: "1995",
+        answer3: "2001",
+        answer4: "1989",
+        correct: 2
+    },
+]
 
 // - start button click event to set timer going and display first question
 startBtnEl.addEventListener("click", beginQuiz);
@@ -123,18 +170,20 @@ function showQuizQues() {
         return
     };
 
-    //set variable to pick question from array below and then show this question
+    // set variable to pick question from array below and then show this question
     currentQuestion = quizQuestions[currentQuestionIndex]
     questionsEl.innerText = currentQuestion.question;
 
-    //loop to run through the question and answers for each value in array and show corresponding answers with question and button on html page
+    // provide answers for each question based on the data number assigned to each answer
     for (var i = 0; i < chosenAnswer.length; i++){
         var answer = chosenAnswer[i];
         var number = answer.dataset["number"];
         answer.innerText = currentQuestion["answer" + number];
     }
 
-    //removes question from array each time one answered
+
+
+    //removes question from array each time one answered so will move to next question
     quizQuestions.splice(currentQuestionIndex, 1)
 }
 
@@ -145,7 +194,7 @@ var questionClick = function(){
         //when answer is clicked the number allocated to the button matches with the number allocated to the answer to work out if correct or not
         answer.addEventListener("click", function(k){
             var selectedOption = k.target;
-            selectedAnswer = selectedOption.dataset["number"];
+            var selectedAnswer = selectedOption.dataset["number"];
 
             //need quiz to end if time under 10 seconds and another wrong answer or keep going if over 10 seconds
             if (selectedAnswer != currentQuestion.correct && timeLeft > 10){
@@ -188,50 +237,3 @@ var questionClick = function(){
 //call function to make it work
 questionClick()
 
-//quiz questions in array
-let quizQuestions = [
-    {
-        question: "What does HTML stand for?",
-        answer1: "HyperText Markup Langauge",
-        answer2: "HelloText My Learning",
-        answer3: "HyperText Means Language",
-        answer4: "HeavyTraffic Means Late",
-        correct: 1
-    },
-
-    {
-        question: "What tag is used to add an external CSS file to HTML?",
-        answer1: "<img>",
-        answer2: "<script>",
-        answer3: "<link>",
-        answer4: "<a>",
-        correct: 3
-    },
-
-    {
-        question: "How many values does boolean have in Javascript?",
-        answer1: "3",
-        answer2: "10",
-        answer3: "0",
-        answer4: "2",
-        correct: 4
-    },
-
-    {
-        question: "Who invented Javascript?",
-        answer1: "Elon Musk",
-        answer2: "Steve Jobs",
-        answer3: "Brendan Eich",
-        answer4: "Bill Gates",
-        correct: 3
-    },
-
-    {
-        question: "When was Javascript invented?",
-        answer1: "1997",
-        answer2: "1995",
-        answer3: "2001",
-        answer4: "1989",
-        correct: 2
-    },
-]
