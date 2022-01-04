@@ -64,7 +64,6 @@ submitScoreEl.addEventListener("click", function(event){
     }
     //add saved highscores to an array
     hS.push(savedScores);
-    console.log(hS);
     
     //sort highscores into list based on highest score first
     hS.sort(function(a,b){
