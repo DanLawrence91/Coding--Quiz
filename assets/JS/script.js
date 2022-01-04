@@ -168,6 +168,8 @@ var questionClick = function(){
             showQuizQues()
 
             //makes the score whatever the time left was - trying to make score show 0 if time up?
+            //have an issue where if all questions are answered except the last it will set score on time penultimate question answered due to zero index?
+            // if more than one question not answered sets score at 0 as intended however if all answered except last question will set score at time second to last answered
             if (quizQuestions.length === 0){
                 score = timeLeft;
             }
