@@ -147,6 +147,10 @@ function beginQuiz(){
             clearInterval(timeInterval);
             highScoresContainerEl.setAttribute("style", "display:block");
             qAndAnsEl.setAttribute("style", "display:none");
+            score = 0
+            localStorage.setItem("lastScore", score);
+            lastHighScore = localStorage.getItem("lastScore");
+            finalScore.innerText = lastHighScore;
         }
 
         //stops timer when gets to last question rather than after last question
@@ -180,8 +184,6 @@ function showQuizQues() {
         var number = answer.dataset["number"];
         answer.innerText = currentQuestion["answer" + number];
     }
-
-
 
     //removes question from array each time one answered so will move to next question
     quizQuestions.splice(currentQuestionIndex, 1)
@@ -218,13 +220,8 @@ var questionClick = function(){
             //makes the score whatever the time left was - trying to make score show 0 if time up?
             //have an issue where if all questions are answered except the last it will set score on time penultimate question answered due to zero index?
             // if more than one question not answered sets score at 0 as intended however if all answered except last question will set score at time second to last answered
-            if (quizQuestions.length === 0){
+            if (quizQuestions.length == 0){
                 score = timeLeft;
-            }
-
-            //if no time left then score will be 0
-            if (timeLeft == 0){
-                score = 0;
             }
 
             localStorage.setItem("lastScore", score);
