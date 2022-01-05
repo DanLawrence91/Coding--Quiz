@@ -39,7 +39,7 @@ const finalScore = document.querySelector("#finalScore");
 
 let score = 0;
 let currentQuestionIndex = "";
-let currentQuestion = {};
+let currentQuestion = "";
 let lastHighScore = "";
 
 //quiz questions in array
@@ -63,7 +63,7 @@ let quizQuestions = [
     },
 
     {
-        question: "How many values does boolean have in Javascript?",
+        question: "How many boolean values are there in Javascript?",
         answer1: "3",
         answer2: "10",
         answer3: "0",
@@ -88,7 +88,58 @@ let quizQuestions = [
         answer4: "1989",
         correct: 2
     },
+
+    {
+        question: "How is an external JS file linked",
+        answer1: "<script>",
+        answer2: "<a>",
+        answer3: "<body>",
+        answer4: "<footer>",
+        correct: 1
+    },
+
+    {
+        question: "What is bootstrap used for?",
+        answer1: "HTML",
+        answer2: "CSS",
+        answer3: "JavaScript",
+        answer4: "JQuery",
+        correct: 2
+    },
+
+    {
+        question: "What is 2 x 4?",
+        answer1: "2",
+        answer2: "4",
+        answer3: "8",
+        answer4: "24",
+        correct: 3
+    },
+
+    {
+        question: "What is 16/4?",
+        answer1: "2",
+        answer2: "0",
+        answer3: "8",
+        answer4: "4",
+        correct: 4
+    },
+
+    {
+        question: "Who is the Ashes played between?",
+        answer1: "England and New Zealand",
+        answer2: "New Zealand and Australia",
+        answer3: "England and Australia",
+        answer4: "Australia and South Africa",
+        correct: 3
+    },
 ]
+
+// let lastQuestion = quizQuestions[quizQuestions.length - 1]
+// console.log(lastQuestion.question)
+
+var timeLeft = 60;
+var timeInterval = ""
 
 // - start button click event to set timer going and display first question
 startBtnEl.addEventListener("click", beginQuiz);
@@ -123,8 +174,7 @@ submitScoreEl.addEventListener("click", function(event){
     location.assign("highscores.html");
 })
 
-var timeLeft = 60;
-var timeInterval = ""
+
 
 //function to for quiz to start that runs when click event above is ran
 function beginQuiz(){
@@ -144,7 +194,7 @@ function beginQuiz(){
             timerEl.textContent = "Time: " + timeLeft
             timeLeft--;
         } else {
-            timerEl.textContent = timeLeft;
+            timerEl.textContent = "Time: " + timeLeft;
             clearInterval(timeInterval);
             highScoresContainerEl.setAttribute("style", "display:block");
             qAndAnsEl.setAttribute("style", "display:none");
@@ -152,11 +202,6 @@ function beginQuiz(){
             localStorage.setItem("lastScore", score);
             lastHighScore = localStorage.getItem("lastScore");
             finalScore.innerText = lastHighScore;
-        }
-
-        //stops timer when gets to last question rather than after last question
-        if (quizQuestions.length === {}){
-            clearInterval(timeInterval);
         }
 
     }, 1000);
@@ -167,27 +212,27 @@ function beginQuiz(){
 
 function showQuizQues() {
 
-    //if no questions left will show final page where score is shown, and timer will stop
+    // //if no questions left will show final page where score is shown, and timer will stop
     if (quizQuestions.length === 0){
         highScoresContainerEl.setAttribute("style", "display:block");
         qAndAnsEl.setAttribute("style", "display:none");
         timerEl.textContent = "Time: " + timeLeft
         clearInterval(timeInterval)
         return
-    };
+    };    
 
-    // set variable to pick question from array below and then show this question
+    // set variable to pick question from array of questions and then show this question
     currentQuestion = quizQuestions[currentQuestionIndex]
     questionsEl.innerText = currentQuestion.question;
 
-    // provide answers for each question based on the data number assigned to each answer
+    // allocate answer from array to match with data number so right answers show with right question
     for (var i = 0; i < chosenAnswer.length; i++){
         var answer = chosenAnswer[i];
         var number = answer.dataset["number"];
         answer.innerText = currentQuestion["answer" + number];
     }
 
-    //removes question from array each time one answered so will move to next question
+    //removes question from array each time one answered so will move to next question, then when this function is called again by function below it will have new question at index = 0
     quizQuestions.splice(currentQuestionIndex, 1)
 }
 
@@ -220,16 +265,17 @@ var questionClick = function(){
             showQuizQues()
 
             //score is logged as the time left when last question answered, code placed above in beginQuiz function where if quiz not finished the score will log as 0
-            if (quizQuestions.length == 0){
+            if (quizQuestions.length === 0){
                 score = timeLeft;
             }
 
             localStorage.setItem("lastScore", score);
             lastHighScore = localStorage.getItem("lastScore");
             finalScore.innerText = lastHighScore;
+
         })
     }
 }
 
-//call function to make it work
+//call function so that when answer is clicked the timer will adjust accordingly, the next question will be shown from the arry and if at the end of quiz the score will be allocated
 questionClick()
