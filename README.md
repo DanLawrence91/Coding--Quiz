@@ -16,10 +16,13 @@
 ![Screenshot of front page of quiz](./images/front-page.png)
 
 - This shows how the question will appear and that the timer has started:
-![Screenshot of first question](./images/first-q.png)
+![Screenshot of first question](./images/first-question.png)
 
 - This shows the final score the user got and how it links to the time left on the clock to get the score:
-![Screenshot of final score from time left](./images/score.png)
+![Screenshot of final score from time left](./images/final-score.png)
+
+- This shows the leaderboard with the final score added to it as a list item:
+![Screenshot of leaderboard](./images/leaderboard.png)
 
 ## Future features
 

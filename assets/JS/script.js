@@ -135,9 +135,6 @@ let quizQuestions = [
     },
 ]
 
-// let lastQuestion = quizQuestions[quizQuestions.length - 1]
-// console.log(lastQuestion.question)
-
 var timeLeft = 60;
 var timeInterval = ""
 
@@ -274,6 +271,7 @@ var questionClick = function(){
                 score = timeLeft;
             }
 
+            //saves score to local storage and displays final score to user
             localStorage.setItem("lastScore", score);
             lastHighScore = localStorage.getItem("lastScore");
             finalScore.innerText = lastHighScore + "!";
