@@ -124,6 +124,7 @@ submitScoreEl.addEventListener("click", function(event){
 })
 
 var timeLeft = 60;
+var timeInterval = ""
 
 //function to for quiz to start that runs when click event above is ran
 function beginQuiz(){
@@ -138,7 +139,7 @@ function beginQuiz(){
     }
 
     //interval set with text content to show how long is left, also changes display to show submit area for highscores once done
-    var timeInterval = setInterval(function (){
+    timeInterval = setInterval(function (){
         if (timeLeft >= 1){
             timerEl.textContent = "Time: " + timeLeft
             timeLeft--;
@@ -154,9 +155,9 @@ function beginQuiz(){
         }
 
         //stops timer when gets to last question rather than after last question
-        // if (quizQuestions.length === 0){
-        //     clearInterval(timeInterval);
-        // }
+        if (quizQuestions.length === {}){
+            clearInterval(timeInterval);
+        }
 
     }, 1000);
     currentQuestionIndex = 0;
@@ -166,11 +167,12 @@ function beginQuiz(){
 
 function showQuizQues() {
 
-    //if no questions left will show final page where score is shown
+    //if no questions left will show final page where score is shown, and timer will stop
     if (quizQuestions.length === 0){
         highScoresContainerEl.setAttribute("style", "display:block");
         qAndAnsEl.setAttribute("style", "display:none");
-        timerEl.setAttribute("style", "display:none") //check stopping timer when no questions left as timer just stopped above when got to last questionm
+        timerEl.textContent = "Time: " + timeLeft
+        clearInterval(timeInterval)
         return
     };
 
@@ -231,4 +233,3 @@ var questionClick = function(){
 
 //call function to make it work
 questionClick()
-
