@@ -257,10 +257,15 @@ var questionClick = function(){
             //show whether the last question the user got was right or wrong
             if (selectedAnswer == currentQuestion.correct){
                 rightEl.setAttribute("style", "display:block");
-                wrongEl.setAttribute("style", "display:none")
+                setInterval(function(){
+                    rightEl.setAttribute("style", "display:none")
+                }, 2000)
+                
             } else {
                 wrongEl.setAttribute("style", "display:block");
-                rightEl.setAttribute("style", "display:none");
+                setInterval(function(){
+                    wrongEl.setAttribute("style", "display:none");
+                }, 2000)
             }
             showQuizQues()
 
