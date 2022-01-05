@@ -1,3 +1,16 @@
+:root{
+    --main: #40b8f5;
+    --dark: #1e1d8f;
+}
+
+body {
+    background-color: var(--main);
+}
+
+nav {
+    font-size: 20px;
+}
+    
 main {
     display: flex;
     justify-content: center;
@@ -21,6 +34,23 @@ ul a:visited {
     color: black;
 }
 
+form {
+    padding: 10px;
+}
+
+input {
+    margin: 10px;
+    padding: 10px;
+}
+
+label {
+    padding: 10px;
+}
+
+button {
+    padding: 5px;
+}
+
 .intro {
     display: flex;
     width: 50vw;
@@ -29,7 +59,10 @@ ul a:visited {
     justify-content: center;
     position: absolute;
     top: 25%;
-    padding: 10px;
+    padding: 15px;
+    background-color: var(--dark);
+    color: var(--main);
+    border-radius: 25px;
 }
 
 .intro p {
@@ -46,6 +79,9 @@ ul a:visited {
     position: absolute;
     top: 30%;
     padding: 10px;
+    background-color: var(--dark);
+    border-radius: 25px;
+    color: var(--main);
 }
 
 .button-grid {
@@ -72,14 +108,26 @@ ul a:visited {
 
 #highScoresContainer {
     display: none;
+    padding: 10px;
+}
+
+#questions {
+    font-weight: bold;
 }
 
 #right {
     display: none;
+    font-weight: bold;
 }
 
 #wrong {
     display: none;
+    font-weight: bold;
+}
+
+#finalScore {
+    font-weight: bold;
+    color: yellow;
 }
 
 /* highscore page styling below */
@@ -103,14 +151,25 @@ ol li {
 }
 
 .highscoreStyle {
+    position: absolute;
+    top: 25%;
+    padding: 10px;
+}
+
+.leaderboard {
     display: flex;
+    width: 50vw;
     flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 25%;
-    flex-direction: column;
+    top: 30%;
     padding: 10px;
+    background-color: var(--dark);
+    border-radius: 25px;
+    color: var(--main);
+    padding: 15px;
 }
 
 .highscoreStyle h1 {
@@ -120,3 +179,6 @@ ol li {
 #clearHS:hover {
     cursor: pointer;
 }
+
+
+

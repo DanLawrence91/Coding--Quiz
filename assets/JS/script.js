@@ -271,7 +271,7 @@ var questionClick = function(){
 
             localStorage.setItem("lastScore", score);
             lastHighScore = localStorage.getItem("lastScore");
-            finalScore.innerText = lastHighScore;
+            finalScore.innerText = lastHighScore + "!";
 
         })
     }
