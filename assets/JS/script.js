@@ -209,7 +209,7 @@ function beginQuiz(){
 
 function showQuizQues() {
 
-    // //if no questions left will show final page where score is shown, and timer will stop
+    //if current index matches length of array of questions, show final page where score is shown, and timer will stop
     if (currentQuestionIndex == quizQuestions.length){
         highScoresContainerEl.setAttribute("style", "display:block");
         qAndAnsEl.setAttribute("style", "display:none");
@@ -229,7 +229,7 @@ function showQuizQues() {
         answer.innerText = currentQuestion["answer" + number];
     })
 
-    //removes question from array each time one answered so will move to next question, then when this function is called again by function below it will have new question at index = 0
+    // increase current question index by one each time so that when this question is answered the next question will appear   
     currentQuestionIndex = currentQuestionIndex + 1;
 }
 
@@ -266,9 +266,8 @@ function questionClick(){
                 }, 1000)
             }
             showQuizQues()
-            console.log(currentQuestionIndex)
 
-            //score is logged as the time left when last question answered, code placed above in beginQuiz function where if quiz not finished the score will log as 0
+            //score is logged as the time left when question index matches last question from array of questions, code placed above in beginQuiz function where if quiz not finished the score will log as 0
             if (currentQuestionIndex == quizQuestions.length){
                 score = timeLeft;
             }
