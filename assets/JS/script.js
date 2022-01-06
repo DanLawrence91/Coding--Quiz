@@ -135,7 +135,7 @@ let quizQuestions = [
     },
 ]
 
-var timeLeft = 60;
+var timeLeft = 80;
 var timeInterval = ""
 
 // - start button click event to set timer going and display first question
@@ -210,33 +210,34 @@ function beginQuiz(){
 function showQuizQues() {
 
     // //if no questions left will show final page where score is shown, and timer will stop
-    if (quizQuestions.length === 0){
+    if (currentQuestionIndex == quizQuestions.length){
         highScoresContainerEl.setAttribute("style", "display:block");
         qAndAnsEl.setAttribute("style", "display:none");
         timerEl.textContent = "Time: " + timeLeft
         clearInterval(timeInterval)
         return
     };    
-
+    
     // set variable to pick question from array of questions and then show this question
     currentQuestion = quizQuestions[currentQuestionIndex]
     questionsEl.innerText = currentQuestion.question;
 
     // allocate answer from array to match with data number so right answers show with right question
-    for (var i = 0; i < chosenAnswer.length; i++){
-        var answer = chosenAnswer[i];
+    chosenAnswer.forEach((chosen) => {
+        var answer = chosen;
         var number = answer.dataset["number"];
         answer.innerText = currentQuestion["answer" + number];
-    }
+    })
 
     //removes question from array each time one answered so will move to next question, then when this function is called again by function below it will have new question at index = 0
-    quizQuestions.splice(currentQuestionIndex, 1)
+    currentQuestionIndex = currentQuestionIndex + 1;
 }
 
 //when answer is clicked it will move to next question as function to show questions will run again with the most recent question removed
-var questionClick = function(){
-    for (var j = 0; j < chosenAnswer.length; j++){
-        var answer = chosenAnswer[j];
+function questionClick(){
+
+    chosenAnswer.forEach((click) => {
+        var answer = click;
         //when answer is clicked the number allocated to the button matches with the number allocated to the answer to work out if correct or not
         answer.addEventListener("click", function(k){
             var selectedOption = k.target;
@@ -256,18 +257,19 @@ var questionClick = function(){
                 rightEl.setAttribute("style", "display:block");
                 setTimeout(function(){
                     rightEl.setAttribute("style", "display:none")
-                }, 2000)
+                }, 1000)
                 
             } else {
                 wrongEl.setAttribute("style", "display:block");
                 setTimeout(function(){
                     wrongEl.setAttribute("style", "display:none");
-                }, 2000)
+                }, 1000)
             }
             showQuizQues()
+            console.log(currentQuestionIndex)
 
             //score is logged as the time left when last question answered, code placed above in beginQuiz function where if quiz not finished the score will log as 0
-            if (quizQuestions.length === 0){
+            if (currentQuestionIndex == quizQuestions.length){
                 score = timeLeft;
             }
 
@@ -277,7 +279,7 @@ var questionClick = function(){
             finalScore.innerText = lastHighScore + "!";
 
         })
-    }
+    })
 }
 
 //call function so that when answer is clicked the timer will adjust accordingly, the next question will be shown from the arry and if at the end of quiz the score will be allocated
